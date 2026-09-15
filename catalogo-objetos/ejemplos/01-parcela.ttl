@@ -1,0 +1,22 @@
+@prefix ex: <https://cdg-idera.github.io/ontologias/catalogo-objetos/ejemplos/> .
+@prefix idera-feature: <https://cdg-idera.github.io/ontologias/catalogo-objetos/feature/> .
+@prefix idera-prop: <https://cdg-idera.github.io/ontologias/catalogo-objetos/property/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================
+# Ejemplo 1
+# Instancia concreta de una Parcela
+# Objeto Geográfico IDERA 110101
+# ============================================================
+
+ex:parcela-001
+    a idera-feature:110101 ;
+
+    idera-prop:ARA 1250.50 ;
+
+    geo:hasGeometry ex:geom-parcela-001 .
+
+ex:geom-parcela-001
+    a geo:Geometry ;
+    geo:asWKT "POLYGON ((-68.10 -38.95, -68.09 -38.95, -68.09 -38.94, -68.10 -38.94, -68.10 -38.95))"^^geo:wktLiteral .

@@ -1,0 +1,47 @@
+PREFIX idera: <https://cdg-idera.github.io/ontologias/catalogo-objetos/>
+PREFIX ex:    <https://cdg-idera.github.io/ontologias/catalogo-objetos/ejemplos/>
+
+SELECT
+    ?instancia
+    ?objetoGeografico
+    (COUNT(DISTINCT ?atributoCatalogado) AS ?atributosCatalogados)
+    (COUNT(DISTINCT ?atributoImplementado) AS ?atributosImplementados)
+    ((COUNT(DISTINCT ?atributoCatalogado) -
+      COUNT(DISTINCT ?atributoImplementado)) AS ?atributosFaltantes)
+    ((100.0 * COUNT(DISTINCT ?atributoImplementado) /
+      COUNT(DISTINCT ?atributoCatalogado)) AS ?coberturaPorcentaje)
+
+WHERE {
+
+    # Instancia que queremos evaluar
+    VALUES ?instancia { ex:parcela-003 }
+
+    # Identifica qué Objeto Geográfico IDERA implementa su clase
+    ?instancia a ?claseImplementable .
+
+    ?claseImplementable
+        idera:implementaObjetoGeografico ?objetoGeografico .
+
+    # Atributos definidos por el catálogo para ese OG
+    ?objetoGeografico
+        idera:tieneAtributo ?atributoCatalogado .
+
+    # Atributos realmente utilizados por la instancia
+    OPTIONAL {
+
+        ?instancia ?propiedad ?valor .
+
+        ?propiedad
+            (idera:implementaAtributo |
+             idera:correspondeAtributo)
+            ?atributoImplementado .
+
+        # Solo contamos atributos pertenecientes al OG evaluado
+        FILTER EXISTS {
+            ?objetoGeografico
+                idera:tieneAtributo ?atributoImplementado .
+        }
+    }
+}
+
+GROUP BY ?instancia ?objetoGeografico

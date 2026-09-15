@@ -1,0 +1,17 @@
+@prefix ex: <https://cdg-idera.github.io/ontologias/catalogo-objetos/ejemplos/> .
+@prefix idera-feature: <https://cdg-idera.github.io/ontologias/catalogo-objetos/feature/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+
+# ============================================================
+# Ejemplo 6
+# Geometría compatible con el tipo geométrico de Parcela
+# ============================================================
+
+ex:parcela-006
+    a idera-feature:110101 ;
+    geo:hasGeometry ex:geom-parcela-006 .
+
+ex:geom-parcela-006
+    a geo:Geometry ;
+    geo:asWKT
+        "POLYGON ((-68.10 -38.95, -68.09 -38.95, -68.09 -38.94, -68.10 -38.94, -68.10 -38.95))"^^geo:wktLiteral .

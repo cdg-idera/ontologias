@@ -1,0 +1,21 @@
+@prefix ex: <https://cdg-idera.github.io/ontologias/catalogo-objetos/ejemplos/> .
+@prefix idera: <https://cdg-idera.github.io/ontologias/catalogo-objetos/> .
+@prefix idera-feature: <https://cdg-idera.github.io/ontologias/catalogo-objetos/feature/> .
+@prefix idera-attr: <https://cdg-idera.github.io/ontologias/catalogo-objetos/atributo/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================
+# Ejemplo 2
+# Propiedad local mapeada semánticamente a un atributo IDERA
+# ============================================================
+
+ex:parcela-002
+    a idera-feature:110101 ;
+    ex:superficie 980.75 .
+
+# La fuente utiliza su propia propiedad "superficie".
+# Se declara que semánticamente corresponde al atributo
+# ARA del Catálogo IDERA.
+
+ex:superficie
+    idera:correspondeAtributo idera-attr:ARA .

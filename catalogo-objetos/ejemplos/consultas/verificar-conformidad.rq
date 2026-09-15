@@ -1,0 +1,27 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX ex: <https://cdg-idera.github.io/ontologias/catalogo-objetos/ejemplos/>
+
+SELECT
+    ?instancia
+    ?resultado
+    ?mensaje
+    ?propiedad
+    ?valor
+WHERE {
+
+    VALUES ?instancia {
+        ex:parcela-004
+        ex:parcela-005
+    }
+
+    OPTIONAL {
+        ?resultado
+            a sh:ValidationResult ;
+            sh:focusNode ?instancia .
+
+        OPTIONAL { ?resultado sh:resultMessage ?mensaje . }
+        OPTIONAL { ?resultado sh:resultPath ?propiedad . }
+        OPTIONAL { ?resultado sh:value ?valor . }
+    }
+}
+ORDER BY ?instancia

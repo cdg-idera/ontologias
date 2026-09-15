@@ -1,0 +1,22 @@
+@prefix ex: <https://cdg-idera.github.io/ontologias/catalogo-objetos/ejemplos/> .
+@prefix idera: <https://cdg-idera.github.io/ontologias/catalogo-objetos/> .
+@prefix idera-feature: <https://cdg-idera.github.io/ontologias/catalogo-objetos/feature/> .
+@prefix idera-attr: <https://cdg-idera.github.io/ontologias/catalogo-objetos/atributo/> .
+
+# ============================================================
+# Ejemplo 3
+# Parcela con cobertura parcial de atributos IDERA
+# ============================================================
+
+ex:parcela-003
+    a idera-feature:110101 ;
+    ex:superficie 1250.50 ;
+    ex:nomenclatura "Ejemplo-001" .
+
+# Mapeos semánticos de las propiedades locales
+
+ex:superficie
+    idera:correspondeAtributo idera-attr:ARA .
+
+ex:nomenclatura
+    idera:correspondeAtributo idera-attr:NMP .
