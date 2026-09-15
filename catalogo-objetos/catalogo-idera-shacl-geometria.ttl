@@ -1,0 +1,98 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix idera: <https://cdg-idera.github.io/ontologias/catalogo-objetos/> .
+@prefix idera-sh: <https://cdg-idera.github.io/ontologias/catalogo-objetos/shapes/geometria/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://cdg-idera.github.io/ontologias/catalogo-objetos/shacl/geometria>
+    a owl:Ontology ;
+    dcterms:title "SHACL de compatibilidad geométrica del Catálogo de Objetos Geográficos de IDERA"@es ;
+    dcterms:description "Módulo SHACL opcional para validar la compatibilidad entre el tipo geométrico declarado por el Catálogo IDERA V2.2 y geometrías concretas expresadas mediante GeoSPARQL/WKT. Las familias geométricas admitidas constituyen una decisión de implementación y no una restricción explícita del Catálogo IDERA V2.2."@es ;
+    dcterms:source "Catálogo de Objetos Geográficos de IDERA V2.2"@es ;
+    dcterms:language "es" ;
+    owl:versionInfo "2.2" .
+
+# SHACL experimental para validar compatibilidad geométrica entre:
+# - el tipo geométrico declarado por el Catálogo IDERA, y
+# - la geometría concreta expresada como GeoSPARQL/WKT.
+#
+# IMPORTANTE:
+# Este módulo se mantiene separado de catalogo-idera-shacl.ttl
+# porque la validación de compatibilidad geométrica es opcional y constituye
+# una decisión de implementación, no una restricción explícita del Catálogo IDERA V2.2.
+#
+# Familias admitidas:
+# Punto      -> POINT, MULTIPOINT
+# Línea      -> LINESTRING, MULTILINESTRING
+# Polígono   -> POLYGON, MULTIPOLYGON
+# Tipos compuestos -> cualquiera de sus familias componentes.
+#
+# Los valores originales de tipo geométrico del catálogo NO se modifican.
+# La normalización se realiza solamente dentro de la restricción SPARQL.
+
+idera-sh:CompatibilidadGeometricaShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf geo:hasGeometry ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "La geometría de la feature no pertenece a una familia geométrica compatible con el tipo declarado para su Objeto Geográfico IDERA."@es ;
+        sh:severity sh:Violation ;
+        sh:select """
+            PREFIX idera: <https://cdg-idera.github.io/ontologias/catalogo-objetos/>
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+            SELECT $this ?geom ?wkt ?tipoGeometricoIDERA
+            WHERE {
+                $this a ?claseImplementable ;
+                      geo:hasGeometry ?geom .
+
+                ?geom geo:asWKT ?wkt .
+
+                ?og idera:defineClaseImplementable ?claseImplementable ;
+                    idera:tipoGeometrico ?tipoGeometricoIDERA .
+
+                BIND(LCASE(STR(?tipoGeometricoIDERA)) AS ?tipo)
+
+                BIND(UCASE(STR(?wkt)) AS ?wktTexto)
+
+                BIND(
+                    (
+                        (
+                            CONTAINS(?tipo, "punto") &&
+                            (
+                                STRSTARTS(?wktTexto, "POINT") ||
+                                STRSTARTS(?wktTexto, "MULTIPOINT")
+                            )
+                        )
+                        ||
+                        (
+                            CONTAINS(?tipo, "multipunto") &&
+                            STRSTARTS(?wktTexto, "MULTIPOINT")
+                        )
+                        ||
+                        (
+                            (CONTAINS(?tipo, "línea") || CONTAINS(?tipo, "linea")) &&
+                            (
+                                STRSTARTS(?wktTexto, "LINESTRING") ||
+                                STRSTARTS(?wktTexto, "MULTILINESTRING")
+                            )
+                        )
+                        ||
+                        (
+                            (CONTAINS(?tipo, "polígono") || CONTAINS(?tipo, "poligono")) &&
+                            (
+                                STRSTARTS(?wktTexto, "POLYGON") ||
+                                STRSTARTS(?wktTexto, "MULTIPOLYGON")
+                            )
+                        )
+                    )
+                    AS ?compatible
+                )
+
+                FILTER(!?compatible)
+            }
+        """ ;
+    ] .
