@@ -4,5 +4,8 @@
 @prefix : <> .
 <https://cdg-idera.github.io/ontologias/catalogo-objetos/version/2.2> a prov:Entity;
 	 dc:title "Ontología del Catálogo de Objetos Geográficos de IDERA";
+	 prov:wasAttributedTo :agent0;
 	 prov:wasAttributedTo <https://github.com/dgarijo/Widoco/>,<http://www.essepuntato.it/lode/>;
+	 prov:wasGeneratedAt "2026-09-15";
 .
+:agent0 a prov:Agent; foaf:name "Luis Reynoso".

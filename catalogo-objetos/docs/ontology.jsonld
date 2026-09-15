@@ -1,8 +1,20 @@
 [ {
+  "@id" : "http://purl.org/dc/terms/creator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
   "@id" : "http://purl.org/dc/terms/description",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
+  "@id" : "http://purl.org/dc/terms/issued",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
   "@id" : "http://purl.org/dc/terms/language",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://purl.org/dc/terms/license",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://purl.org/dc/terms/publisher",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "http://purl.org/dc/terms/source",
@@ -14,21 +26,37 @@
   "@id" : "http://www.opengis.net/ont/geosparql#Feature",
   "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
 }, {
+  "@id" : "http://www.w3.org/2001/XMLSchema#date",
+  "@type" : [ "http://www.w3.org/2000/01/rdf-schema#Datatype" ]
+}, {
   "@id" : "http://www.w3.org/2004/02/skos/core#definition",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "https://cdg-idera.github.io/ontologias/catalogo-objetos/",
   "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ],
+  "http://purl.org/dc/terms/creator" : [ {
+    "@value" : "Luis Reynoso"
+  } ],
   "http://purl.org/dc/terms/description" : [ {
     "@language" : "es",
-    "@value" : "Representación semántica del Catálogo de Objetos Geográficos de IDERA V2.2."
+    "@value" : "Esta ontología proporciona una representación semántica del Catálogo de Objetos Geográficos de IDERA V2.2. Modela su estructura de clases, subclases, objetos geográficos, atributos y dominios, preservando la semántica definida por el catálogo. Su propósito es facilitar la identificación, vinculación y validación semántica de información geoespacial conforme al Catálogo IDERA, favoreciendo la interoperabilidad y la reutilización de sus conceptos en diferentes sistemas y aplicaciones."
+  } ],
+  "http://purl.org/dc/terms/issued" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#date",
+    "@value" : "2026-09-15"
   } ],
   "http://purl.org/dc/terms/language" : [ {
     "@value" : "es"
   } ],
-  "http://purl.org/dc/terms/source" : [ {
+  "http://purl.org/dc/terms/license" : [ {
+    "@id" : "https://creativecommons.org/licenses/by/4.0/"
+  } ],
+  "http://purl.org/dc/terms/publisher" : [ {
     "@language" : "es",
-    "@value" : "Catálogo de Objetos Geográficos de IDERA V2.2"
+    "@value" : "Grupo de Trabajo Temático Ciencia de Datos Geoespaciales (GTT-CDG) de IDERA"
+  } ],
+  "http://purl.org/dc/terms/source" : [ {
+    "@id" : "https://www.idera.gob.ar/index.php/recursos/catalogo-de-og-y-dbyf"
   } ],
   "http://purl.org/dc/terms/title" : [ {
     "@language" : "es",

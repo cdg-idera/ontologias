@@ -8,9 +8,13 @@
 
 <https://cdg-idera.github.io/ontologias/catalogo-objetos/> rdf:type owl:Ontology ;
                                                             owl:versionIRI <https://cdg-idera.github.io/ontologias/catalogo-objetos/version/2.2> ;
-                                                            <http://purl.org/dc/terms/description> "Representación semántica del Catálogo de Objetos Geográficos de IDERA V2.2."@es ;
+                                                            <http://purl.org/dc/terms/creator> "Luis Reynoso" ;
+                                                            <http://purl.org/dc/terms/description> "Esta ontología proporciona una representación semántica del Catálogo de Objetos Geográficos de IDERA V2.2. Modela su estructura de clases, subclases, objetos geográficos, atributos y dominios, preservando la semántica definida por el catálogo. Su propósito es facilitar la identificación, vinculación y validación semántica de información geoespacial conforme al Catálogo IDERA, favoreciendo la interoperabilidad y la reutilización de sus conceptos en diferentes sistemas y aplicaciones."@es ;
+                                                            <http://purl.org/dc/terms/issued> "2026-09-15"^^xsd:date ;
                                                             <http://purl.org/dc/terms/language> "es" ;
-                                                            <http://purl.org/dc/terms/source> "Catálogo de Objetos Geográficos de IDERA V2.2"@es ;
+                                                            <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> ;
+                                                            <http://purl.org/dc/terms/publisher> "Grupo de Trabajo Temático Ciencia de Datos Geoespaciales (GTT-CDG) de IDERA"@es ;
+                                                            <http://purl.org/dc/terms/source> <https://www.idera.gob.ar/index.php/recursos/catalogo-de-og-y-dbyf> ;
                                                             <http://purl.org/dc/terms/title> "Ontología del Catálogo de Objetos Geográficos de IDERA"@es ;
                                                             owl:versionInfo "2.2" .
 
@@ -18,12 +22,28 @@
 #    Annotation properties
 #################################################################
 
+###  http://purl.org/dc/terms/creator
+<http://purl.org/dc/terms/creator> rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/terms/description
 <http://purl.org/dc/terms/description> rdf:type owl:AnnotationProperty .
 
 
+###  http://purl.org/dc/terms/issued
+<http://purl.org/dc/terms/issued> rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/terms/language
 <http://purl.org/dc/terms/language> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/publisher
+<http://purl.org/dc/terms/publisher> rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/source
@@ -36,6 +56,14 @@
 
 ###  http://www.w3.org/2004/02/skos/core#definition
 <http://www.w3.org/2004/02/skos/core#definition> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
 
 
 #################################################################

@@ -18,9 +18,13 @@
 <https://cdg-idera.github.io/ontologias/catalogo-objetos/>
     a owl:Ontology ;
     dcterms:title "Ontología del Catálogo de Objetos Geográficos de IDERA"@es ;
-    dcterms:description "Representación semántica del Catálogo de Objetos Geográficos de IDERA V2.2."@es ;
-    dcterms:source "Catálogo de Objetos Geográficos de IDERA V2.2"@es ;
+    dcterms:description "Esta ontología proporciona una representación semántica del Catálogo de Objetos Geográficos de IDERA V2.2. Modela su estructura de clases, subclases, objetos geográficos, atributos y dominios, preservando la semántica definida por el catálogo. Su propósito es facilitar la identificación, vinculación y validación semántica de información geoespacial conforme al Catálogo IDERA, favoreciendo la interoperabilidad y la reutilización de sus conceptos en diferentes sistemas y aplicaciones."@es ;
+    dcterms:creator "Luis Reynoso" ;
+    dcterms:publisher "Grupo de Trabajo Temático Ciencia de Datos Geoespaciales (GTT-CDG) de IDERA"@es ;
+    dcterms:source <https://www.idera.gob.ar/index.php/recursos/catalogo-de-og-y-dbyf> ;
     dcterms:language "es" ;
+    dcterms:issued "2026-09-15"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     owl:versionInfo "2.2" ;
     owl:versionIRI <https://cdg-idera.github.io/ontologias/catalogo-objetos/version/2.2> .
 
