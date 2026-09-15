@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ontología del Catálogo de Objetos Geográficos de IDERA</title>
+
+  <meta name="description"
+        content="Ontología del Catálogo de Objetos Geográficos de IDERA V2.2. Representación semántica mediante RDF, RDFS, OWL, GeoSPARQL y SHACL.">
+
+  <style>
+    :root {
+      --azul: #0756a3;
+      --azul-oscuro: #073b72;
+      --azul-claro: #eef6fd;
+      --celeste: #e8f4fc;
+      --verde: #087c6b;
+      --naranja: #c86b12;
+      --violeta: #6e42b5;
+      --texto: #1d2b3a;
+      --texto-suave: #566573;
+      --borde: #d9e3ec;
+      --fondo: #f7f9fc;
+      --blanco: #ffffff;
+      --sombra: 0 6px 22px rgba(25, 55, 85, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   Helvetica, Arial, sans-serif;
+      color: var(--texto);
+      background: var(--fondo);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ---------------------------------------------------------
+       HERO
+       --------------------------------------------------------- */
+
+    .hero {
+      background:
+        linear-gradient(120deg, rgba(4, 57, 111, 0.98), rgba(4, 93, 165, 0.94));
+      color: white;
+      padding: 68px 24px 62px;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .hero-logo {
+      width: 130px;
+      height: auto;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .hero-copy { min-width: 0; }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      margin-bottom: 18px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+
+    .hero .subtitle {
+      max-width: 900px;
+      margin-top: 22px;
+      font-size: 1.18rem;
+      color: rgba(255,255,255,.91);
+    }
+
+    .hero .organization {
+      margin-top: 18px;
+      color: rgba(255,255,255,.75);
+      font-size: .98rem;
+    }
+
+    .tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 28px;
+    }
+
+    .tech span {
+      padding: 5px 11px;
+      border-radius: 5px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      font-size: .83rem;
+      font-weight: 600;
+    }
+
+    /* ---------------------------------------------------------
+       CONTENIDO
+       --------------------------------------------------------- */
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px 70px;
+    }
+
+    /* ---------------------------------------------------------
+       ESTADÍSTICAS
+       --------------------------------------------------------- */
+
+    .stats {
+      position: relative;
+      margin-top: -30px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--sombra);
+      border: 1px solid var(--borde);
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 24px 10px;
+      text-align: center;
+      border-right: 1px solid var(--borde);
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--azul);
+      font-size: 1.9rem;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--texto-suave);
+      font-size: .88rem;
+    }
+
+    /* ---------------------------------------------------------
+       SECCIONES
+       --------------------------------------------------------- */
+
+    section {
+      margin-top: 58px;
+    }
+
+    section h2 {
+      color: var(--azul-oscuro);
+      margin-bottom: 10px;
+      font-size: 1.75rem;
+    }
+
+    .lead {
+      max-width: 920px;
+      color: var(--texto-suave);
+      font-size: 1.05rem;
+      margin-top: 0;
+    }
+
+    /* ---------------------------------------------------------
+       ACCESOS PRINCIPALES
+       --------------------------------------------------------- */
+
+    .cards {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      display: block;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      padding: 24px;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease,
+                  border-color .15s ease;
+      min-height: 175px;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra);
+      border-color: #9fc2e3;
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--azul-claro);
+      color: var(--azul);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      color: var(--azul-oscuro);
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--texto-suave);
+      font-size: .92rem;
+    }
+
+    .card .go {
+      display: block;
+      margin-top: 14px;
+      color: var(--azul);
+      font-weight: 600;
+      font-size: .88rem;
+    }
+
+    /* ---------------------------------------------------------
+       DESCRIPCIÓN DEL MODELO
+       --------------------------------------------------------- */
+
+    .model-box {
+      margin-top: 26px;
+      background: white;
+      border: 1px solid var(--borde);
+      border-left: 5px solid var(--azul);
+      border-radius: 8px;
+      padding: 26px 30px;
+    }
+
+    .model-flow {
+      margin-top: 22px;
+      padding: 17px;
+      background: var(--azul-claro);
+      border-radius: 7px;
+      text-align: center;
+      color: var(--azul-oscuro);
+      font-weight: 650;
+      letter-spacing: .01em;
+    }
+
+    /* ---------------------------------------------------------
+       GRÁFICOS
+       --------------------------------------------------------- */
+
+    .figure-main,
+    .figure-secondary {
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+
+    .figure-main {
+      margin-top: 28px;
+      padding: 18px;
+    }
+
+    .figure-main img,
+    .figure-secondary img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      padding: 13px 10px 3px;
+      color: var(--texto-suave);
+      font-size: .88rem;
+      text-align: center;
+    }
+
+    .figure-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .figure-secondary {
+      padding: 14px;
+    }
+
+    /* ---------------------------------------------------------
+       RECURSOS TÉCNICOS
+       --------------------------------------------------------- */
+
+    .resources {
+      margin-top: 25px;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .resource {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .resource:last-child {
+      border-bottom: none;
+    }
+
+    .resource code {
+      color: var(--azul-oscuro);
+      font-size: .88rem;
+    }
+
+    .resource a {
+      white-space: nowrap;
+      color: var(--azul);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    .resource a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------------------------------------------------------
+       FOOTER
+       --------------------------------------------------------- */
+
+    footer {
+      background: #092f57;
+      color: rgba(255,255,255,.82);
+      padding: 35px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    footer p {
+      margin: 4px 0;
+      font-size: .9rem;
+    }
+
+    /* ---------------------------------------------------------
+       RESPONSIVE
+       --------------------------------------------------------- */
+
+    @media (max-width: 900px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat {
+        border-bottom: 1px solid var(--borde);
+      }
+
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 45px;
+      }
+
+      .hero-brand {
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .hero-logo { width: 82px; }
+
+      .stats,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-right: none;
+      }
+
+      .resource {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- =======================================================
+       CABECERA
+       ======================================================= -->
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-brand">
+        <img class="hero-logo" src="images/idera.png" alt="IDERA">
+        <div class="hero-copy">
+          <div class="eyebrow">Infraestructura de Datos Espaciales de la República Argentina</div>
+          <h1>Ontología del Catálogo de Objetos Geográficos de IDERA</h1>
+          <p class="subtitle">
+            Representación semántica del Catálogo de Objetos Geográficos
+            de IDERA V2.2, orientada a facilitar la identificación,
+            consulta, integración y validación de información geoespacial.
+          </p>
+          <p class="organization">
+            Desarrollada por el Grupo de Trabajo Temático Ciencia de Datos
+            Geoespaciales (GTT-CDG) de IDERA.
+          </p>
+          <div class="tech">
+            <span>RDF</span><span>RDFS</span><span>OWL</span><span>SKOS</span>
+            <span>GeoSPARQL</span><span>SHACL</span><span>SPARQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =====================================================
+         INDICADORES
+         ===================================================== -->
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong>12</strong>
+        <span>Clases</span>
+      </div>
+
+      <div class="stat">
+        <strong>58</strong>
+        <span>Subclases</span>
+      </div>
+
+      <div class="stat">
+        <strong>285</strong>
+        <span>Objetos Geográficos</span>
+      </div>
+
+      <div class="stat">
+        <strong>267</strong>
+        <span>Atributos</span>
+      </div>
+
+      <div class="stat">
+        <strong>996</strong>
+        <span>Valores de dominio</span>
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACCESOS PRINCIPALES
+         ===================================================== -->
+
+    <section>
+
+      <h2>Accesos principales</h2>
+
+      <p class="lead">
+        Desde esta página puede acceder a la documentación,
+        los archivos RDF de la ontología, los módulos de validación
+        y los ejemplos reproducibles.
+      </p>
+
+      <div class="cards">
+
+        <a class="card" href="docs/">
+          <div class="card-icon">D</div>
+          <h3>Documentación</h3>
+          <p>
+            Documentación técnica de la ontología generada con WIDOCO.
+          </p>
+          <span class="go">Explorar documentación →</span>
+        </a>
+
+
+        <a class="card" href="catalogo-idera.ttl">
+          <div class="card-icon">R</div>
+          <h3>Ontología RDF / Turtle</h3>
+          <p>
+            Archivo principal que contiene la representación semántica
+            del Catálogo de Objetos Geográficos de IDERA.
+          </p>
+          <span class="go">Abrir catalogo-idera.ttl →</span>
+        </a>
+
+
+        <a class="card" href="ejemplos/">
+          <div class="card-icon">E</div>
+          <h3>Ejemplos y pruebas</h3>
+          <p>
+            Casos reproducibles para GraphDB, SPARQL, SHACL
+            y validación mediante pySHACL.
+          </p>
+          <span class="go">Explorar ejemplos →</span>
+        </a>
+
+
+        <a class="card" href="catalogo-idera-shacl.ttl">
+          <div class="card-icon">S</div>
+          <h3>Validación SHACL</h3>
+          <p>
+            Módulo de conformidad para validar datos respecto de
+            las restricciones formalizadas a partir del catálogo.
+          </p>
+          <span class="go">Abrir módulo SHACL →</span>
+        </a>
+
+
+        <a class="card" href="catalogo-idera-shacl-geometria.ttl">
+          <div class="card-icon">G</div>
+          <h3>Validación geométrica</h3>
+          <p>
+            Módulo SHACL complementario para evaluar compatibilidad
+            entre geometrías y tipos geométricos.
+          </p>
+          <span class="go">Abrir SHACL de geometría →</span>
+        </a>
+
+
+        <a class="card"
+           href="https://github.com/cdg-idera/ontologias"
+           target="_blank"
+           rel="noopener noreferrer">
+          <div class="card-icon">&lt;/&gt;</div>
+          <h3>Repositorio GitHub</h3>
+          <p>
+            Código fuente, ontología, módulos de validación,
+            ejemplos y documentación del proyecto.
+          </p>
+          <span class="go">Abrir repositorio →</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MODELO
+         ===================================================== -->
+
+    <section>
+
+      <h2>Modelo semántico del Catálogo IDERA</h2>
+
+      <div class="model-box">
+
+        <p>
+          La ontología formaliza los principales elementos del
+          <strong>Catálogo de Objetos Geográficos de IDERA V2.2</strong>:
+          Clases, Subclases, Objetos Geográficos, Atributos y Valores
+          de Dominio.
+        </p>
+
+        <p>
+          El modelo utiliza estándares de la Web Semántica y del dominio
+          geoespacial para proporcionar identificadores persistentes,
+          relaciones explícitas y componentes que puedan ser utilizados
+          por aplicaciones, infraestructuras de datos espaciales,
+          sistemas de consulta y procesos automáticos de validación.
+        </p>
+
+        <p>
+          Los Objetos Geográficos se vinculan con
+          <strong>clases implementables</strong>, mientras que los
+          atributos del catálogo se vinculan con
+          <strong>propiedades implementables</strong>. Las clases
+          implementables se integran con GeoSPARQL mediante
+          <code>geo:Feature</code>, permitiendo representar instancias
+          geográficas concretas.
+        </p>
+
+        <div class="model-flow">
+          Catálogo IDERA &nbsp;→&nbsp; Ontología &nbsp;→&nbsp;
+          Clases y propiedades implementables &nbsp;→&nbsp;
+          Datos geoespaciales &nbsp;→&nbsp; Consulta y validación
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ARQUITECTURA Y GRÁFICOS
+         ===================================================== -->
+
+    <section>
+
+      <h2>Arquitectura de la ontología</h2>
+
+      <p class="lead">
+        Los siguientes diagramas presentan la organización general
+        de la ontología, sus principales relaciones y la vinculación
+        entre el modelo del catálogo, los estándares reutilizados
+        y las instancias geográficas.
+      </p>
+
+
+      <!-- Vista general -->
+
+      <figure class="figure-main">
+        <img
+          src="images/grafB(2).png"
+          alt="Arquitectura general de la Ontología del Catálogo de Objetos Geográficos de IDERA">
+        <figcaption>
+          Arquitectura general, estándares reutilizados, módulos de la
+          ontología y vinculación con instancias y datos.
+        </figcaption>
+      </figure>
+
+
+      <!-- Diagramas complementarios -->
+
+      <div class="figure-grid">
+
+        <figure class="figure-secondary">
+          <img
+            src="images/grafA(3).png"
+            alt="Diagrama de clases de la Ontología del Catálogo de Objetos Geográficos de IDERA">
+          <figcaption>
+            Diagrama conceptual de los principales elementos del modelo.
+          </figcaption>
+        </figure>
+
+
+        <figure class="figure-secondary">
+          <img
+            src="images/relaciones-principales(7).png"
+            alt="Relaciones principales de la Ontología del Catálogo de Objetos Geográficos de IDERA">
+          <figcaption>
+            Relaciones entre estándares, conceptos del catálogo,
+            componentes implementables e instancias geográficas.
+          </figcaption>
+        </figure>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RECURSOS TÉCNICOS
+         ===================================================== -->
+
+    <section>
+
+      <h2>Recursos técnicos</h2>
+
+      <p class="lead">
+        Archivos principales que componen la publicación de la ontología.
+      </p>
+
+      <div class="resources">
+
+        <div class="resource">
+          <code>catalogo-idera.ttl</code>
+          <a href="catalogo-idera.ttl">Ontología principal →</a>
+        </div>
+
+        <div class="resource">
+          <code>catalogo-idera-shacl.ttl</code>
+          <a href="catalogo-idera-shacl.ttl">SHACL de conformidad →</a>
+        </div>
+
+        <div class="resource">
+          <code>catalogo-idera-shacl-geometria.ttl</code>
+          <a href="catalogo-idera-shacl-geometria.ttl">
+            SHACL de geometría →
+          </a>
+        </div>
+
+        <div class="resource">
+          <code>docs/</code>
+          <a href="docs/">Documentación WIDOCO →</a>
+        </div>
+
+        <div class="resource">
+          <code>ejemplos/</code>
+          <a href="ejemplos/">Ejemplos reproducibles →</a>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =======================================================
+       PIE
+       ======================================================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <p>
+        <strong>Ontología del Catálogo de Objetos Geográficos de IDERA</strong>
+      </p>
+
+      <p>
+        Catálogo de Objetos Geográficos de IDERA V2.2
+      </p>
+
+      <p>
+        Grupo de Trabajo Temático Ciencia de Datos Geoespaciales
+        (GTT-CDG) · IDERA
+      </p>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
