@@ -957,10 +957,12 @@ def generar_terminos_ontologia():
 
         titulo = etiqueta if etiqueta else identificador
 
+        profundidad = len(Path(identificador).parts)
+
         html = inicio_html(
             titulo,
-            f"Término de la ontología: {titulo}",
-            profundidad=1
+            "Término de la ontología",
+            profundidad=profundidad
         )
 
         html += f"""
